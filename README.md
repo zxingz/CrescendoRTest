@@ -1,2 +1,2 @@
 # CrescendoRTest
-Program
+R Script
