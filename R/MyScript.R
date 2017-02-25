@@ -7,9 +7,15 @@ if("dplyr" %in% rownames(installed.packages()) == FALSE)
 if("ggplot2" %in% rownames(installed.packages()) == FALSE) 
 {install.packages("ggplot2")}
 
+
 library(Lahman)
 library(dplyr)
 library(ggplot2)
+
+#data for python
+wd <- dirname(sys.frame(1)$ofile)
+write.csv(Batting, file = paste(wd, "/Batting.csv", sep = ""), row.names = TRUE)
+write.csv(Teams, file = paste(wd, "/Teams.csv", sep = ""), row.names = TRUE)
 
 #1.Using Lahman MLB data in R, list the top 5 teams since 2000 with the largest stolen bases per at bat ratio:
 
@@ -60,3 +66,4 @@ ggplot(mydata, aes(x=yearID, y=sbpab,group=lgID, colour=lgID)) +
 
 
 #4. A baseball player is said to be continuously playing if he's playing for consequent years. Given the years that some baseball player played in, write the function activeYears which computes the sequence of the lengths of the continuous playing. 
+
