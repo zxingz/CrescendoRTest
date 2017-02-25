@@ -23,11 +23,14 @@ write.csv(Teams, file = paste(wd, "/Teams.csv", sep = ""), row.names = TRUE)
 #1.Using Lahman MLB data in R, list the top 5 teams since 2000 with the largest stolen bases per at bat ratio:
 
 # Ans: using the Team data
-#also there were some team name changes so, need to reflect that
+#also there were some team name changes so, need to reflect that i.e. 30 baseball teams + Montreal Expos was dropped = 31
 mydata = Teams %>% select(yearID, name, SB, AB, teamID) %>%
   filter(yearID>= 2000)%>%
+  filter(!is.na(SB)) %>%
+  filter(!is.na(AB)) %>%
   mutate(name = ifelse(name == "Tampa Bay Devil Rays", "Tampa Bay Rays", name)) %>%
   mutate(name = ifelse(name == "Anaheim Angels", "Los Angeles Angels of Anaheim", name)) %>%
+  mutate(name = ifelse(name == "Florida Marlins", "Miami Marlins", name)) %>%
   group_by(name) %>%
   summarise(SB = sum(SB), AB = sum(AB)) %>%
   mutate(sbpab = SB/AB) %>%
@@ -128,7 +131,7 @@ activeYears <- function(nvec)
   } 
   return(res)
 }
-nvec <- c(1999,1995,1996,1998,1999,2000,2001,2003,2004,2006)
+nvec <- c(1994,1995,1996,1998,1999,2000,2001,2003,2004,2006)
 activeYears(nvec)
 
 
